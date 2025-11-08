@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+   <h1>Manual Traffic Signal Control</h1>
+  <p >A modern, minimalistic web UI for traffic light control.</p>
+
+  
+  <div class="traffic-light">
+    <div class="light red"></div>
+    <div class="light yellow"></div>
+    <div class="light green"></div
+  </div>
+
+  <div class="buttons">
+    <button id="redBtn" class="active">Red</button>
+    <button id="yellowBtn">Yellow</button>
+    <button id="greenBtn">Green</button>
+  </div>
+
+  <p id="status">Status: Stop</p>
+
+  </body>
+<style>
+
+body {
+  background-color: #0d1117;
+  color: white;
+  text-align: center;
+  padding-top: 40px;
+}
+
+h1 {
+  font-size: 1;
+  }
+
+
+.traffic-light {
+  width: 120px;
+  margin: auto;
+  background-color: #1f2937;
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  }
+
+.light {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin: 0 auto;
+  opacity: 0.2;
+  
+}
+
+/* When active, brightness and glow */
+.light.red.active {
+  background-color: #ef4444;
+  opacity: 1;
+  box-shadow: 0 0 30px #ef4444;
+}
+.light.yellow.active {
+  background-color: #facc15;
+  opacity: 1;
+  box-shadow: 0 0 30px #facc15;
+}
+.light.green.active {
+  background-color: #22c55e;
+  opacity: 1;
+  box-shadow: 0 0 30px #22c55e;
+}
+
+/* Default light colors when inactive */
+.light.red { background-color: #ef4444; }
+.light.yellow { background-color: #facc15; }
+.light.green { background-color: #22c55e; }
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 25px;
+}
+
+button {
+  background-color: #1f2937;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  
+}
+
+button.active {
+  background-color: #ef4444;
+  box-shadow: 0 0 15px #ef4444;
+}
+
+#yellowBtn.active {
+  background-color: #facc15;
+  box-shadow: 0 0 15px #facc15;
+}
+
+#greenBtn.active {
+  background-color: #22c55e;
+  box-shadow: 0 0 15px #22c55e;
+}
+
+#status {
+  margin-top: 20px;
+  font-size: 1rem;
+  color: #d1d5db;
+}
+</style>
+
+<script>
+
+var lights = {
+  red: document.querySelector(".light.red"),
+  yellow: document.querySelector(".light.yellow"),
+  green: document.querySelector(".light.green")
+};
+
+var buttons = {
+  red: document.getElementById("redBtn"),
+  yellow: document.getElementById("yellowBtn"),
+  green: document.getElementById("greenBtn")
+};
+
+var statusText = document.getElementById("status");
+
+function activateLight(color) {
+  // Turn off all lights and button highlights
+  Object.values(lights).forEach(light => light.classList.remove("active"));
+  Object.values(buttons).forEach(btn => btn.classList.remove("active"));
+
+  // Turn on the chosen light and highlight its button
+  lights[color].classList.add("active");
+  buttons[color].classList.add("active");
+
+  // Update the status text 
+  statusText.textContent = `Status: ${color.charAt(0).toUpperCase() + color.slice(1)} Light Active`;
+}
+
+// Event listeners for buttons
+buttons.red.addEventListener("click", () => activateLight("red"));
+buttons.yellow.addEventListener("click", () => activateLight("yellow"));
+buttons.green.addEventListener("click", () => activateLight("green"));
+
+// Default initial state
+activateLight("red");
+</script>
+</html>
